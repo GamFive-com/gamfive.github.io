@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamFive - Premium Gaming Gear</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Loader -->
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <div class="logo-container">
+                <svg id="gamfive-logo" class="logo-svg" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff0080;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="10" y="40" font-family="Orbitron, monospace" font-size="24" font-weight="900" fill="url(#logoGradient)">GamFive</text>
+                </svg>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-text">Loading Gaming Experience...</div>
+        </div>
+    </div>
+
+    <!-- Page Transition Overlay -->
+    <div id="page-transition" class="page-transition">
+        <div class="transition-content">
+            <div class="glitch-text" data-text="LOADING">LOADING</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg class="nav-logo-svg" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="navLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00f5ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff0080;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="10" y="40" font-family="Orbitron, monospace" font-size="24" font-weight="900" fill="url(#navLogoGradient)">GamFive</text>
+                </svg>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <section id="home-page" class="page active">
+            <div class="hero-section">
+                <div class="hero-background">
+                    <div class="grid-overlay"></div>
+                    <div class="particle-system">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                
+                <div class="hero-content">
+                    <div class="hero-image-container">
+                        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="GamFive Gaming Setup" class="hero-image">
+                        <div class="image-overlay">
+                            <div class="overlay-pattern"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="cta-container">
+                        <button class="cta-button" id="order-button">
+                            <span class="button-text">Order on Indiegogo</span>
+                            <div class="button-glow"></div>
+                            <div class="button-particles">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about-page" class="page">
+            <div class="about-container">
+                <div class="about-header">
+                    <h1 class="glitch-title" data-text="ABOUT US">ABOUT US</h1>
+                    <div class="header-line"></div>
+                </div>
+                
+                <div class="about-content">
+                    <div class="company-info">
+                        <div class="info-card">
+                            <div class="card-header">
+                                <h2>Our Story</h2>
+                                <div class="card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="company-description">
+                                GamFive is a cutting-edge gaming peripheral brand founded by passionate tech enthusiasts and geeks. 
+                                We are dedicated to providing the world's gaming community with the most exceptional gaming equipment 
+                                and accessories. Our mission is to push the boundaries of gaming technology, creating gear that enhances 
+                                every player's experience and unleashes their full potential.
+                                <br><br>
+                                As a subsidiary brand of AIMORELOGY LIMITED, GamFive combines innovative engineering with sleek design, 
+                                delivering products that are not just tools, but extensions of the gamer's soul. We believe that great 
+                                gaming starts with great gear, and we're here to make that belief a reality.
+                            </p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="card-header">
+                                <h2>Get in Touch</h2>
+                                <div class="card-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2"/>
+                                        <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="contact-info">
+                                <a href="mailto:info@gamfive.com" class="email-link">
+                                    <span class="email-text">info@gamfive.com</span>
+                                    <div class="email-glow"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mini Game Section -->
+                    <div class="game-section">
+                        <div class="game-header">
+                            <h2>Classic Arcade</h2>
+                            <div class="game-subtitle">Experience the retro gaming spirit</div>
+                        </div>
+                        
+                        <div class="game-container">
+                            <canvas id="snake-game" width="400" height="400"></canvas>
+                            <div class="game-controls">
+                                <button id="start-game" class="game-button">Start Game</button>
+                                <button id="reset-game" class="game-button">Reset</button>
+                                <div class="score">Score: <span id="score">0</span></div>
+                            </div>
+                            <div class="game-instructions">
+                                <p>Use WASD or Arrow keys to control the snake</p>
+                                <p>Eat the food to grow and increase your score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 
