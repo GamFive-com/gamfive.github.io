@@ -119,6 +119,91 @@ class SnakeGame {
         this.resetButton.addEventListener('click', () => {
             this.resetGame();
         });
+        
+        // 添加方向键支持
+        this.initDpadControls();
+    }
+    
+    initDpadControls() {
+        const dpadButtons = document.querySelectorAll('.dpad-btn');
+        dpadButtons.forEach(button => {
+            // 点击事件
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const direction = button.getAttribute('data-direction');
+                this.handleDirectionInput(direction);
+                this.addButtonFeedback(button);
+            });
+            
+            // 触摸开始事件
+            button.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const direction = button.getAttribute('data-direction');
+                this.handleDirectionInput(direction);
+                this.addButtonFeedback(button);
+            });
+            
+            // 鼠标按下事件
+            button.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                button.classList.add('pressed');
+            });
+            
+            // 鼠标松开和离开事件
+            button.addEventListener('mouseup', () => {
+                button.classList.remove('pressed');
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.classList.remove('pressed');
+            });
+        });
+    }
+    
+    addButtonFeedback(button) {
+        // 添加视觉反馈
+        button.classList.add('pressed');
+        
+        // 触觉反馈（在支持的设备上）
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
+        
+        // 移除反馈效果
+        setTimeout(() => {
+            button.classList.remove('pressed');
+        }, 150);
+    }
+    
+    handleDirectionInput(direction) {
+        if (!this.gameRunning) return;
+        
+        switch(direction) {
+            case 'up':
+                if (this.dy === 0) {
+                    this.dx = 0;
+                    this.dy = -1;
+                }
+                break;
+            case 'down':
+                if (this.dy === 0) {
+                    this.dx = 0;
+                    this.dy = 1;
+                }
+                break;
+            case 'left':
+                if (this.dx === 0) {
+                    this.dx = -1;
+                    this.dy = 0;
+                }
+                break;
+            case 'right':
+                if (this.dx === 0) {
+                    this.dx = 1;
+                    this.dy = 0;
+                }
+                break;
+        }
     }
     
     setupControls() {
@@ -230,18 +315,43 @@ class SnakeGame {
     }
     
     generateFood() {
-        this.food = {
-            x: Math.floor(Math.random() * this.tileCount),
-            y: Math.floor(Math.random() * this.tileCount)
-        };
+        let attempts = 0;
+        const maxAttempts = 100; // 防止无限循环
         
-        // Make sure food doesn't spawn on snake
-        for (let segment of this.snake) {
-            if (segment.x === this.food.x && segment.y === this.food.y) {
-                this.generateFood();
-                return;
+        do {
+            this.food = {
+                x: Math.floor(Math.random() * this.tileCount),
+                y: Math.floor(Math.random() * this.tileCount)
+            };
+            attempts++;
+        } while (this.isFoodOnSnake() && attempts < maxAttempts);
+        
+        // 如果尝试太多次仍然重叠，强制放置在一个安全位置
+        if (attempts >= maxAttempts) {
+            this.food = this.findSafePosition();
+        }
+    }
+    
+    isFoodOnSnake() {
+        return this.snake.some(segment => 
+            segment.x === this.food.x && segment.y === this.food.y
+        );
+    }
+    
+    findSafePosition() {
+        // 寻找一个不与蛇重叠的安全位置
+        for (let y = 0; y < this.tileCount; y++) {
+            for (let x = 0; x < this.tileCount; x++) {
+                const isOccupied = this.snake.some(segment => 
+                    segment.x === x && segment.y === y
+                );
+                if (!isOccupied) {
+                    return { x, y };
+                }
             }
         }
+        // 如果所有位置都被占用（不太可能），返回默认位置
+        return { x: 0, y: 0 };
     }
     
     drawFood() {
@@ -294,16 +404,24 @@ class SnakeGame {
     }
     
     resetGame() {
+        // 停止当前游戏
+        this.gameRunning = false;
+        
+        // 重置游戏状态
         this.snake = [{x: 10, y: 10}];
         this.dx = 0;
         this.dy = 0;
         this.score = 0;
-        this.gameRunning = false;
+        
+        // 确保蛇不会和食物重叠
+        this.generateFood();
+        
+        // 更新UI
         this.scoreElement.textContent = this.score;
         this.startButton.textContent = 'Start Game';
         this.startButton.disabled = false;
         
-        this.generateFood();
+        // 重新绘制游戏
         this.draw();
     }
     
@@ -420,8 +538,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize page manager
     const pageManager = new PageManager();
     
-    // Initialize snake game
+    // Initialize snake game and save to global variable for resize handling
     const snakeGame = new SnakeGame();
+    window.snakeGameInstance = snakeGame;
     
     // Initialize interactive elements
     const interactiveElements = new InteractiveElements();
@@ -465,12 +584,30 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('resize', () => {
     // Adjust canvas size if needed
     const canvas = document.getElementById('snake-game');
-    if (canvas && window.innerWidth < 480) {
-        canvas.width = 250;
-        canvas.height = 250;
-    } else if (canvas && window.innerWidth < 768) {
-        canvas.width = 300;
-        canvas.height = 300;
+    if (canvas) {
+        let newSize;
+        if (window.innerWidth < 480) {
+            newSize = 280;
+        } else if (window.innerWidth < 768) {
+            newSize = 320;
+        } else {
+            newSize = 400;
+        }
+        
+        // 只有在尺寸改变时才调整
+        if (canvas.width !== newSize) {
+            canvas.width = newSize;
+            canvas.height = newSize;
+            
+            // 重新计算游戏参数
+            if (window.snakeGameInstance) {
+                window.snakeGameInstance.tileCount = newSize / 20;
+                // 如果游戏正在运行，重新绘制
+                if (!window.snakeGameInstance.gameRunning) {
+                    window.snakeGameInstance.draw();
+                }
+            }
+        }
     }
 });
 

@@ -162,9 +162,40 @@
                                 <button id="reset-game" class="game-button">Reset</button>
                                 <div class="score">Score: <span id="score">0</span></div>
                             </div>
+                            
+                            <!-- 电玩风格方向键 -->
+                            <div class="game-dpad">
+                                <div class="dpad-container">
+                                    <button class="dpad-btn dpad-up" data-direction="up">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 14L12 9L17 14H7Z" fill="currentColor"/>
+                                        </svg>
+                                    </button>
+                                    <div class="dpad-middle">
+                                        <button class="dpad-btn dpad-left" data-direction="left">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 7L9 12L14 17V7Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                        <div class="dpad-center"></div>
+                                        <button class="dpad-btn dpad-right" data-direction="right">
+                                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M10 17L15 12L10 7V17Z" fill="currentColor"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <button class="dpad-btn dpad-down" data-direction="down">
+                                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17 10L12 15L7 10H17Z" fill="currentColor"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            
                             <div class="game-instructions">
-                                <p>Use WASD or Arrow keys to control the snake</p>
-                                <p>Eat the food to grow and increase your score</p>
+                                <p>🎮 Use D-Pad or WASD/Arrow keys to control</p>
+                                <p>🍎 Eat the yellow food to grow and score points</p>
+                                <p>⚡ Avoid hitting walls or yourself</p>
                             </div>
                         </div>
                     </div>

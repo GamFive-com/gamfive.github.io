@@ -673,6 +673,131 @@ body {
     color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.4;
+    margin-top: 1rem;
+}
+
+/* 电玩风格方向键 */
+.game-dpad {
+    margin: 1.5rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.dpad-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 2px;
+    width: 120px;
+    height: 120px;
+    background: var(--darker-bg);
+    border-radius: 15px;
+    padding: 8px;
+    border: 2px solid var(--primary-magenta);
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+}
+
+.dpad-btn {
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border: 1px solid var(--primary-magenta);
+    border-radius: 8px;
+    color: var(--primary-cyan);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    font-size: 0;
+    box-shadow: 
+        inset 0 2px 4px rgba(255, 255, 255, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dpad-btn svg {
+    width: 16px;
+    height: 16px;
+    transition: all 0.15s ease;
+}
+
+.dpad-btn:hover {
+    background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+    color: var(--primary-magenta);
+    border-color: var(--primary-cyan);
+    box-shadow: 
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        0 4px 12px rgba(255, 0, 128, 0.4);
+    transform: translateY(-1px);
+}
+
+.dpad-btn:active {
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    transform: translateY(0);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 2px 4px rgba(255, 0, 128, 0.3);
+}
+
+.dpad-btn.pressed {
+    background: linear-gradient(145deg, #0a0a0a, #000000);
+    color: var(--primary-magenta);
+    border-color: var(--primary-cyan);
+    box-shadow: 
+        inset 0 4px 8px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(255, 0, 128, 0.6);
+    transform: scale(0.95);
+}
+
+.dpad-up {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.dpad-middle {
+    grid-column: 1 / 4;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+}
+
+.dpad-left {
+    grid-column: 1;
+}
+
+.dpad-center {
+    grid-column: 2;
+    background: var(--darker-bg);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 0, 128, 0.3);
+    position: relative;
+}
+
+.dpad-center::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--primary-magenta);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: centerPulse 2s ease-in-out infinite;
+}
+
+@keyframes centerPulse {
+    0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.dpad-right {
+    grid-column: 3;
+}
+
+.dpad-down {
+    grid-column: 2;
+    grid-row: 3;
 }
 
 /* Responsive Design */
@@ -708,13 +833,23 @@ body {
     }
     
     #snake-game {
-        width: 300px;
-        height: 300px;
+        width: 320px;
+        height: 320px;
     }
     
     .game-controls {
         flex-direction: column;
         gap: 0.8rem;
+    }
+    
+    .dpad-container {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .dpad-btn svg {
+        width: 14px;
+        height: 14px;
     }
 }
 
@@ -741,7 +876,21 @@ body {
     }
     
     #snake-game {
-        width: 250px;
-        height: 250px;
+        width: 280px;
+        height: 280px;
+    }
+    
+    .dpad-container {
+        width: 90px;
+        height: 90px;
+    }
+    
+    .dpad-btn svg {
+        width: 12px;
+        height: 12px;
+    }
+    
+    .game-instructions {
+        font-size: 0.8rem;
     }
 } 
