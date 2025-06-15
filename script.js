@@ -112,6 +112,10 @@ class SnakeGame {
         
         this.startButton.addEventListener('click', () => {
             if (!this.gameRunning) {
+                // 如果是Game Over状态，先重置游戏状态
+                if (this.startButton.textContent.includes('Game Over')) {
+                    this.resetGame();
+                }
                 this.startGame();
             }
         });
