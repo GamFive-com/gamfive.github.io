@@ -44,6 +44,17 @@ class PageManager {
                 }
             });
         });
+        
+        // 添加logo点击返回主页功能
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            navLogo.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (this.currentPage !== 'home') {
+                    this.changePage('home');
+                }
+            });
+        }
     }
     
     changePage(targetPage) {

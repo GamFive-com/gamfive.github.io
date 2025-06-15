@@ -196,6 +196,19 @@ body {
     padding: 0 2rem;
 }
 
+.nav-logo {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-logo:active {
+    transform: scale(0.98);
+}
+
 .nav-logo-svg {
     width: 120px;
     height: auto;
