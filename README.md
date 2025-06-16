@@ -104,6 +104,15 @@ window.open('https://your-indiegogo-campaign-link', '_blank');
 - **Google Fonts**：Orbitron和Rajdhani字体
 - **Unsplash**：高质量图片资源
 
+## 📂 SEO
+├── 📄 index.html          ← 主要 SEO 配置位置
+├── 📄 styles.css          ← 视觉样式（影响用户体验）
+├── 📄 script.js           ← 交互功能（影响页面性能）
+└── 📁 static/             ← 需要添加的 SEO 资源
+    ├── favicon.ico        ← 网站图标
+    ├── gamfive-og-image.jpg ← 社交分享图片
+    └── apple-touch-icon.png ← 苹果设备图标
+
 ## 🌈 浏览器支持
 
 - Chrome 60+
