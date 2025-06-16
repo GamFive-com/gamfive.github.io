@@ -23,6 +23,7 @@ body {
     color: var(--text-primary);
     overflow-x: hidden;
     line-height: 1.6;
+    /* 移除body上的transform以避免影响fixed定位元素 */
 }
 
 /* Page Loader */
@@ -115,6 +116,10 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease-in-out;
+    /* 专门为过渡层优化 */
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .page-transition.active {
@@ -129,6 +134,10 @@ body {
     color: var(--primary-cyan);
     position: relative;
     animation: glitch 0.5s infinite;
+    /* 优化glitch动画稳定性 */
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .glitch-text::before,
@@ -154,24 +163,24 @@ body {
 }
 
 @keyframes glitch {
-    0%, 74%, 100% { transform: translate(0); }
-    25% { transform: translate(2px, -2px); }
-    50% { transform: translate(-2px, 2px); }
-    75% { transform: translate(2px, 2px); }
+    0%, 74%, 100% { transform: translate(0, 0) translateZ(0); }
+    25% { transform: translate(2px, -2px) translateZ(0); }
+    50% { transform: translate(-2px, 2px) translateZ(0); }
+    75% { transform: translate(2px, 2px) translateZ(0); }
 }
 
 @keyframes glitch-1 {
-    0%, 74%, 100% { transform: translate(0); }
-    25% { transform: translate(-2px, 2px); }
-    50% { transform: translate(2px, -2px); }
-    75% { transform: translate(-2px, -2px); }
+    0%, 74%, 100% { transform: translate(0, 0) translateZ(0); }
+    25% { transform: translate(-2px, 2px) translateZ(0); }
+    50% { transform: translate(2px, -2px) translateZ(0); }
+    75% { transform: translate(-2px, -2px) translateZ(0); }
 }
 
 @keyframes glitch-2 {
-    0%, 74%, 100% { transform: translate(0); }
-    25% { transform: translate(2px, 2px); }
-    50% { transform: translate(-2px, -2px); }
-    75% { transform: translate(2px, -2px); }
+    0%, 74%, 100% { transform: translate(0, 0) translateZ(0); }
+    25% { transform: translate(2px, 2px) translateZ(0); }
+    50% { transform: translate(-2px, -2px) translateZ(0); }
+    75% { transform: translate(2px, -2px) translateZ(0); }
 }
 
 /* Navigation */
@@ -394,6 +403,9 @@ body {
     position: relative;
     margin-bottom: 3rem;
     display: inline-block;
+    /* 优化容器性能 */
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 .hero-image {
@@ -405,15 +417,23 @@ body {
     box-shadow: 
         0 0 50px rgba(0, 245, 255, 0.2),
         inset 0 0 50px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    /* 优化过渡效果，使用硬件加速 */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.3s ease,
+                filter 0.3s ease;
+    /* 启用硬件加速 */
+    will-change: transform, filter;
+    /* 使用transform来避免重排 */
+    transform: scale(1) translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
 }
 
 .hero-image:hover {
     border-color: var(--primary-cyan);
-    box-shadow: 
-        0 0 80px rgba(0, 245, 255, 0.4),
-        inset 0 0 50px rgba(0, 0, 0, 0.2);
-    transform: scale(1.02);
+    /* 使用filter替代box-shadow以获得更好的性能 */
+    filter: brightness(1.1) drop-shadow(0 0 30px rgba(0, 245, 255, 0.4));
+    transform: scale(1.02) translateZ(0);
 }
 
 .image-overlay {
@@ -432,13 +452,17 @@ body {
     height: 100%;
     background: 
         linear-gradient(45deg, transparent 30%, rgba(0, 245, 255, 0.1) 50%, transparent 70%);
-    animation: overlayShine 3s ease-in-out infinite;
+    animation: overlayShine 4s ease-in-out infinite;
+    /* 优化动画性能 */
+    will-change: transform;
+    transform: translateX(-100%) translateZ(0);
+    backface-visibility: hidden;
 }
 
 @keyframes overlayShine {
-    0% { transform: translateX(-100%); }
-    50% { transform: translateX(100%); }
-    100% { transform: translateX(100%); }
+    0% { transform: translateX(-100%) translateZ(0); }
+    50% { transform: translateX(100%) translateZ(0); }
+    100% { transform: translateX(100%) translateZ(0); }
 }
 
 /* CTA Button */
