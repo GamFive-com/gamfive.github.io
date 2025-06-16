@@ -61,9 +61,33 @@ body {
     filter: drop-shadow(0 0 20px var(--primary-cyan));
 }
 
+.logo-svg path[fill="#FF2A2A"] {
+    fill: var(--primary-cyan);
+    stroke: var(--primary-cyan);
+}
+
+.logo-svg path[fill="black"] {
+    fill: var(--text-primary);
+}
+
 @keyframes logoGlow {
     0% { filter: drop-shadow(0 0 20px var(--primary-cyan)); }
     100% { filter: drop-shadow(0 0 40px var(--primary-magenta)); }
+}
+
+@keyframes logoColorShift {
+    0% { 
+        fill: var(--primary-cyan);
+        stroke: var(--primary-cyan);
+    }
+    100% { 
+        fill: var(--primary-magenta);
+        stroke: var(--primary-magenta);
+    }
+}
+
+.logo-container:hover .logo-svg path[fill="#FF2A2A"] {
+    animation: logoColorShift 2s ease-in-out infinite alternate;
 }
 
 .loading-bar {
@@ -224,8 +248,24 @@ body {
     transition: filter 0.3s ease;
 }
 
+.nav-logo-svg path[fill="#FF2A2A"] {
+    fill: var(--primary-cyan);
+    stroke: var(--primary-cyan);
+    transition: all 0.3s ease;
+}
+
+.nav-logo-svg path[fill="black"] {
+    fill: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
 .nav-logo-svg:hover {
     filter: drop-shadow(0 0 15px var(--primary-cyan));
+}
+
+.nav-logo:hover .nav-logo-svg path[fill="#FF2A2A"] {
+    fill: var(--primary-magenta);
+    stroke: var(--primary-magenta);
 }
 
 .nav-menu {
